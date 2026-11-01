@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 清邁之旅</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Noto Sans TC & Playfair Display -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        thai: {
+                            bg: '#EAF0EB',         // 全頁青草綠襯底
+                            card: '#F6F9F6',       // 卡片背景
+                            green: '#2E5B44',      // 泰式濃郁植物綠
+                            lightgreen: '#4D8B68', // 明亮青草綠
+                            accent: '#D4A373',     // 竹編藤黃/暖沙金
+                            gold: '#E0A96D',
+                            text: '#1C3125',       // 深綠灰內文
+                            muted: '#526E5F',
+                            highlight: '#C86D51'   // 泰式橘紅強調色
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Noto Sans TC', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #EAF0EB;
+            background-image: 
+                radial-gradient(at 10% 10%, rgba(77, 139, 104, 0.15) 0px, transparent 50%),
+                radial-gradient(at 90% 90%, rgba(212, 163, 115, 0.2) 0px, transparent 50%);
+            background-attachment: fixed;
+            color: #1C3125;
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+        .thai-pattern {
+            background-color: #2E5B44;
+            background-image: radial-gradient(#3E7558 15%, transparent 16%), radial-gradient(#3E7558 15%, transparent 16%);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+        }
+        .glass-card {
+            background: rgba(246, 249, 246, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(77, 139, 104, 0.2);
+        }
+        .accordion-content {
+            transition: max-height 0.35s ease-in-out, opacity 0.3s ease-in-out;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+        .accordion-content.expanded {
+            max-height: 2500px;
+            opacity: 1;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(77, 139, 104, 0.1);
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #4D8B68;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col pb-16">
+    <!-- Header Block -->
+    <header class="thai-pattern text-white py-10 px-4 sm:px-6 shadow-xl relative overflow-hidden rounded-b-[2.5rem] border-b-4 border-thai-accent">
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <div class="inline-block mb-2 text-thai-accent text-2xl tracking-widest">
+                <i class="fa-solid fa-leaf"></i> 🐘 <i class="fa-solid fa-leaf"></i>
+            </div>
+            <h1 class="text-3xl sm:text-5xl font-extrabold tracking-wide font-serif text-amber-100 drop-shadow-md">
+                2026 清邁之旅
+            </h1>
+            <div class="mt-4 flex flex-col items-center gap-2.5 text-xs sm:text-sm font-medium">
+                <div class="bg-black/30 backdrop-blur-md px-4 py-2 rounded-full border border-thai-accent/40 text-amber-200">
+                    <i class="fa-regular fa-calendar-days me-1.5 text-thai-accent"></i>
+                    <span>2026 / 11 / 11 － 2026 / 11 / 15</span>
+                </div>
+                <div class="bg-black/30 backdrop-blur-md px-4 py-2 rounded-full border border-thai-accent/40 text-white font-mono">
+                    <span id="countdownDisplay">⏳ 距離出發還有 計算中...</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Navigation Bar (文字已簡化並強制單行顯示) -->
+    <nav class="max-w-4xl mx-auto px-4 w-full sticky top-3 z-50 my-6">
+        <div class="flex space-x-1 sm:space-x-2 overflow-x-auto custom-scrollbar p-2 rounded-2xl bg-thai-green/90 backdrop-blur-md shadow-lg border border-thai-accent/30">
+            <button onclick="switchTab('tab-all')" id="btn-tab-all" class="nav-btn flex-1 whitespace-nowrap py-2.5 px-2.5 text-[11px] sm:text-sm font-bold rounded-xl text-center transition-all bg-thai-accent text-thai-text shadow-md">
+                📋 總覽
+            </button>
+            <button onclick="switchTab('tab-d1')" id="btn-tab-d1" class="nav-btn flex-1 whitespace-nowrap py-2.5 px-2 text-[11px] sm:text-sm font-bold rounded-xl text-center transition-all text-amber-100 hover:bg-white/10">
+                D1 11/11
+            </button>
+            <button onclick="switchTab('tab-d2')" id="btn-tab-d2" class="nav-btn flex-1 whitespace-nowrap py-2.5 px-2 text-[11px] sm:text-sm font-bold rounded-xl text-center transition-all text-amber-100 hover:bg-white/10">
+                D2 11/12
+            </button>
+            <button onclick="switchTab('tab-d3')" id="btn-tab-d3" class="nav-btn flex-1 whitespace-nowrap py-2.5 px-2 text-[11px] sm:text-sm font-bold rounded-xl text-center transition-all text-amber-100 hover:bg-white/10">
+                D3 11/13
+            </button>
+            <button onclick="switchTab('tab-d4')" id="btn-tab-d4" class="nav-btn flex-1 whitespace-nowrap py-2.5 px-2 text-[11px] sm:text-sm font-bold rounded-xl text-center transition-all text-amber-100 hover:bg-white/10">
+                D4 11/14
+            </button>
+            <button onclick="switchTab('tab-d5')" id="btn-tab-d5" class="nav-btn flex-1 whitespace-nowrap py-2.5 px-2 text-[11px] sm:text-sm font-bold rounded-xl text-center transition-all text-amber-100 hover:bg-white/10">
+                D5 11/15
+            </button>
+            <button onclick="switchTab('tab-info')" id="btn-tab-info" class="nav-btn flex-1 whitespace-nowrap py-2.5 px-2.5 text-[11px] sm:text-sm font-bold rounded-xl text-center transition-all text-amber-100 hover:bg-white/10">
+                ✈️ 航班住宿
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 w-full flex-grow space-y-6">
+
+        <!-- 5天動態天氣預報小工具 (包含可愛天氣圖案按日期變更) -->
+        <div class="glass-card rounded-2xl p-4 shadow-md border-l-4 border-thai-accent space-y-3">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                    <div class="text-thai-accent text-xl">
+                        <i class="fa-solid fa-cloud-sun"></i>
+                    </div>
+                    <div>
+                        <div class="font-bold text-thai-green text-sm sm:text-base">11/11 - 11/15 清邁即時天氣預報</div>
+                        <div class="text-xs text-thai-muted">點擊下方任一天或右側按鈕查看詳細 AccuWeather 預測</div>
+                    </div>
+                </div>
+                <a href="https://www.accuweather.com/zh/th/mueang-chiang-mai/317505/weather-forecast/317505?type=locality&city=%E6%B8%85%E9%82%81" target="_blank" class="bg-thai-accent hover:bg-thai-gold text-white text-xs px-3 py-2 rounded-xl font-bold shadow-xs flex items-center gap-1.5 transition-all shrink-0">
+                    <span>完整氣象</span>
+                    <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                </a>
+            </div>
+            <!-- 5天每日天氣小卡列 -->
+            <div class="grid grid-cols-5 gap-1.5 sm:gap-2 pt-1">
+                <div class="bg-white/80 rounded-xl p-2 text-center border border-thai-green/10 shadow-2xs">
+                    <div class="text-[11px] font-bold text-thai-green">11/11 (二)</div>
+                    <div class="text-xl my-1">⛅</div>
+                    <div class="text-xs font-bold text-thai-text">29° / 21°</div>
+                    <div class="text-[10px] text-thai-muted">晴時多雲</div>
+                </div>
+                <div class="bg-white/80 rounded-xl p-2 text-center border border-thai-green/10 shadow-2xs">
+                    <div class="text-[11px] font-bold text-thai-green">11/12 (三)</div>
+                    <div class="text-xl my-1">☀️</div>
+                    <div class="text-xs font-bold text-thai-text">30° / 20°</div>
+                    <div class="text-[10px] text-thai-muted">晴朗舒適</div>
+                </div>
+                <div class="bg-white/80 rounded-xl p-2 text-center border border-thai-green/10 shadow-2xs">
+                    <div class="text-[11px] font-bold text-thai-green">11/13 (四)</div>
+                    <div class="text-xl my-1">🌤️</div>
+                    <div class="text-xs font-bold text-thai-text">29° / 20°</div>
+                    <div class="text-[10px] text-thai-muted">多雲時晴</div>
+                </div>
+                <div class="bg-white/80 rounded-xl p-2 text-center border border-thai-green/10 shadow-2xs">
+                    <div class="text-[11px] font-bold text-thai-green">11/14 (五)</div>
+                    <div class="text-xl my-1">⛅</div>
+                    <div class="text-xs font-bold text-thai-text">28° / 19°</div>
+                    <div class="text-[10px] text-thai-muted">微涼多雲</div>
+                </div>
+                <div class="bg-white/80 rounded-xl p-2 text-center border border-thai-green/10 shadow-2xs">
+                    <div class="text-[11px] font-bold text-thai-green">11/15 (六)</div>
+                    <div class="text-xl my-1">☀️</div>
+                    <div class="text-xs font-bold text-thai-text">29° / 20°</div>
+                    <div class="text-[10px] text-thai-muted">晴空萬里</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== TAB: 總覽 ==================== -->
+        <div id="tab-all" class="tab-pane space-y-6">
+            <!-- 航班預計表 (註明桃園機場第一航廈) -->
+            <div class="glass-card rounded-2xl p-5 shadow-md border-l-4 border-thai-green">
+                <h3 class="font-bold text-thai-green text-lg mb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-plane"></i> 預計班機資訊
+                </h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-xs sm:text-sm text-left border-collapse">
+                        <thead>
+                            <tr class="bg-thai-green/10 text-thai-green font-bold border-b border-thai-green/20">
+                                <th class="p-2.5">預計班機</th>
+                                <th class="p-2.5">班號</th>
+                                <th class="p-2.5">出發時間</th>
+                                <th class="p-2.5">出發地</th>
+                                <th class="p-2.5">抵達時間</th>
+                                <th class="p-2.5">目的地</th>
+                                <th class="p-2.5">交通時間</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-thai-green/10 font-medium">
+                            <tr class="hover:bg-white/50">
+                                <td class="p-2.5 font-bold">中華航空</td>
+                                <td class="p-2.5 text-thai-highlight font-bold">CI851</td>
+                                <td class="p-2.5">07:20</td>
+                                <td class="p-2.5">台北 (TPE)<br><span class="text-[10px] text-thai-highlight font-bold">桃園機場第一航廈</span></td>
+                                <td class="p-2.5">10:30</td>
+                                <td class="p-2.5">清邁 (CNX)<br><span class="text-[10px] text-gray-500">清邁國際機場</span></td>
+                                <td class="p-2.5">04:10</td>
+                            </tr>
+                            <tr class="hover:bg-white/50">
+                                <td class="p-2.5 font-bold">中華航空</td>
+                                <td class="p-2.5 text-thai-highlight font-bold">CI852</td>
+                                <td class="p-2.5">11:25</td>
+                                <td class="p-2.5">清邁 (CNX)<br><span class="text-[10px] text-gray-500">清邁國際機場</span></td>
+                                <td class="p-2.5">15:50</td>
+                                <td class="p-2.5">台北 (TPE)<br><span class="text-[10px] text-thai-highlight font-bold">桃園機場第一航廈</span></td>
+                                <td class="p-2.5">03:25</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- 第 1 天 (全部行程) -->
+            <div class="glass-card rounded-2xl p-5 shadow-md border-t-4 border-thai-green">
+                <div class="font-bold text-base sm:text-lg text-thai-green mb-3 border-b border-thai-green/10 pb-2">
+                    第1天 台北／清邁機場 (11:30) ➔ 車程約 45 分鐘：蘭谷莊園：享受綠光森林+網紅打卡景點(停留約 2 小時) ➔ 車程約 30 分鐘：拉查帕皇家花園(停留約 1.5 小時) ➔ 車程約 10 分鐘：清邁夜間動物園 Night Safari(停留約 2.5 小時)
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm bg-white/70 p-3 rounded-xl border border-thai-green/10">
+                    <div>
+                        <p><span class="font-bold text-thai-green">早餐：</span>機上精緻套餐</p>
+                        <p><span class="font-bold text-thai-green">午餐：</span>蘭谷莊園泰式餐＋一人一顆椰子 500B</p>
+                        <p><span class="font-bold text-thai-green">晚餐：</span>(米推) 黑森林餐廳 泰式餐 500B</p>
+                    </div>
+                    <div class="border-t sm:border-t-0 sm:border-l border-thai-green/10 pt-2 sm:pt-0 sm:pl-3">
+                        <p class="font-bold text-thai-highlight">住宿：</p>
+                        <p class="font-semibold">清邁諾富特飯店 Novotel Nimman</p>
+                    </div>
+                </div>
+            </div>
+            <!-- 第 2 天 (全部行程) -->
+            <div class="glass-card rounded-2xl p-5 shadow-md border-t-4 border-thai-green">
+                <div class="font-bold text-base sm:text-lg text-thai-green mb-3 border-b border-thai-green/10 pb-2">
+                    第2天 清邁／車程約 2 小時：泰國屋脊-茵他儂國家公園：國王皇后雙塔公園+哇奇拉瀧瀑布+山頂安卡 ANKA 步道+少數民族市集(停留約 5 小時) ➔ 車程約 50 分鐘：帕丘峽谷 Pha Chor(停留約 45 分鐘) ➔ 車程約 90 分鐘：尼曼路文創市集 ONE NIMMAN 及 MAYA 百貨(停留約 2 小時)
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm bg-white/70 p-3 rounded-xl border border-thai-green/10">
+                    <div>
+                        <p><span class="font-bold text-thai-green">早餐：</span>酒店內用自助餐</p>
+                        <p><span class="font-bold text-thai-green">午餐：</span>國家公園泰式風味餐 350B</p>
+                        <p><span class="font-bold text-thai-green">晚餐：</span>(米推) GINGER FARM KITCHEN 650B</p>
+                    </div>
+                    <div class="border-t sm:border-t-0 sm:border-l border-thai-green/10 pt-2 sm:pt-0 sm:pl-3">
+                        <p class="font-bold text-thai-highlight">住宿：</p>
+                        <p class="font-semibold">清邁諾富特飯店 Novotel Nimman</p>
+                    </div>
+                </div>
+            </div>
+            <!-- 第 3 天 (全部行程) -->
+            <div class="glass-card rounded-2xl p-5 shadow-md border-t-4 border-thai-green">
+                <div class="font-bold text-base sm:text-lg text-thai-green mb-3 border-b border-thai-green/10 pb-2">
+                    第3天 清邁／車程約 40 分鐘：南奔火車之旅-乘坐泰國特色火車前往南奔 ➔ 探訪南奔神秘吳哥建築文化(每人一杯特調咖啡) ➔ DIY 陶瓷彩繪工藝 ➔ 乘坐馬車遊南邦古城(停留約 5 小時)
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm bg-white/70 p-3 rounded-xl border border-thai-green/10">
+                    <div>
+                        <p><span class="font-bold text-thai-green">早餐：</span>酒店內用自助餐</p>
+                        <p><span class="font-bold text-thai-green">午餐：</span>南奔特產 龍眼豬肉米粉湯＋飲料＋椰奶甜點 250B</p>
+                        <p><span class="font-bold text-thai-green">晚餐：</span>(米推) CHOM CAFE 泰式料理 500B</p>
+                    </div>
+                    <div class="border-t sm:border-t-0 sm:border-l border-thai-green/10 pt-2 sm:pt-0 sm:pl-3">
+                        <p class="font-bold text-thai-highlight">住宿：</p>
+                        <p class="font-semibold">清邁萬豪飯店 Chiang Mai Marriott Hotel</p>
+                    </div>
+                </div>
+            </div>
+            <!-- 第 4 天 (全部行程) -->
+            <div class="glass-card rounded-2xl p-5 shadow-md border-t-4 border-thai-green">
+                <div class="font-bold text-base sm:text-lg text-thai-green mb-3 border-b border-thai-green/10 pb-2">
+                    第4天 清邁／車程約 15 分鐘：真心市集 JING JAI MARKET：限定週六、日(停留約 1.5 小時) ➔ 車程約 30 分鐘：泊桑紙傘村 Bo Sang Umbrella Village(停留約 45 分鐘) ➔ 車程約 15 分鐘：百年幸福村：村民幸福家園、景觀咖啡店（品嚐手工椰子冰淇淋每人一份或椰漿湯圓）(停留約 1 小時) ➔ 車程約 30 分鐘：清邁夜市【今日坐麵包車】
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm bg-white/70 p-3 rounded-xl border border-thai-green/10">
+                    <div>
+                        <p><span class="font-bold text-thai-green">早餐：</span>酒店內用自助餐</p>
+                        <p><span class="font-bold text-thai-green">午餐：</span>(米推) 紅橋餐廳 LumDee Te Khuadang 泰式餐 350B</p>
+                        <p><span class="font-bold text-thai-green">晚餐：</span>(米推) OHKAJU 三兄弟有機餐廳 650B</p>
+                    </div>
+                    <div class="border-t sm:border-t-0 sm:border-l border-thai-green/10 pt-2 sm:pt-0 sm:pl-3">
+                        <p class="font-bold text-thai-highlight">住宿：</p>
+                        <p class="font-semibold">清邁萬豪飯店 Chiang Mai Marriott Hotel</p>
+                    </div>
+                </div>
+            </div>
+            <!-- 第 5 天 (全部行程) -->
+            <div class="glass-card rounded-2xl p-5 shadow-md border-t-4 border-thai-green">
+                <div class="font-bold text-base sm:text-lg text-thai-green mb-3 border-b border-thai-green/10 pb-2">
+                    第5天 享用飯店早餐後前往清邁機場／台北
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm bg-white/70 p-3 rounded-xl border border-thai-green/10">
+                    <div>
+                        <p><span class="font-bold text-thai-green">早餐：</span>酒店內用自助餐</p>
+                        <p><span class="font-bold text-thai-green">午餐：</span>機上精緻套餐</p>
+                        <p><span class="font-bold text-thai-green">晚餐：</span>X</p>
+                    </div>
+                    <div class="border-t sm:border-t-0 sm:border-l border-thai-green/10 pt-2 sm:pt-0 sm:pl-3">
+                        <p class="font-bold text-thai-highlight">住宿：</p>
+                        <p class="font-semibold">溫暖的家</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== TAB: D1 (11/11) ==================== -->
+        <div id="tab-d1" class="tab-pane hidden space-y-5">
+            <div class="bg-thai-green text-white p-4 rounded-2xl shadow-md">
+                <h2 class="text-xl font-bold font-serif">DAY 1 ‧ 抵達清邁 & 森林莊園與夜間動物園</h2>
+            </div>
+            <div class="glass-card p-4 rounded-2xl border border-thai-green/20 space-y-2 text-xs sm:text-sm">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-thai-green/10 pb-2">
+                    <span class="font-bold text-thai-green"><i class="fa-solid fa-utensils me-1"></i> 每日餐點：</span>
+                    <span class="text-gray-700"><b>早:</b> 機上精緻套餐 | <b>午:</b> 蘭谷莊園泰式餐+椰子 (500B) | <b>晚:</b> (米推)黑森林餐廳 (500B)</span>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span class="font-bold text-thai-highlight"><i class="fa-solid fa-hotel me-1"></i> 今晚住宿：</span>
+                    <span class="font-bold text-thai-text">清邁諾富特飯店 Novotel Nimman</span>
+                </div>
+            </div>
+            <!-- 景點 1 -->
+            <div class="glass-card rounded-2xl border border-thai-green/20 overflow-hidden shadow-xs">
+                <button onclick="toggleAccordion('d1-spot-1')" class="w-full p-4 text-left flex items-center justify-between bg-white/60 hover:bg-white transition-colors">
+                    <div class="font-bold text-thai-green text-sm sm:text-base flex items-center gap-2 flex-wrap">
+                        <i class="fa-solid fa-tree text-thai-lightgreen"></i>
+                        <span>蘭谷莊園 Lanna Wild (車程 45 分，停留 2 小時)</span>
+                        <a href="https://maps.app.goo.gl/U92CCmeRPHSUNu3JA" target="_blank" onclick="event.stopPropagation()" class="bg-thai-accent hover:bg-thai-gold text-white text-[11px] px-2.5 py-1 rounded-full font-normal shadow-xs flex items-center gap-1 transition-all"><i class="fa-solid fa-location-dot"></i> 地圖</a>
+                    </div>
+                    <i id="icon-d1-spot-1" class="fa-solid fa-chevron-down text-thai-green transition-transform"></i>
+                </button>
+                <div id="d1-spot-1" class="accordion-content border-t border-thai-green/10 bg-white/90">
+                    <div class="p-4 text-xs sm:text-sm text-thai-text leading-relaxed space-y-2">
+                        <p class="font-bold text-thai-green">【景點深入介紹與歷史背景】</p>
+                        <p>蘭谷莊園位於清邁近郊的 Mae Rim 山區，這裡原本是泰北群山環繞的原始山林與溪谷。近年來結合泰北傳統「蘭納建築風格」（以高腳屋、大量原生竹編、木棧道為主），打造出與自然共生的山林生態度假與餐飲空間，讓旅客能在不破壞林相的前提下體驗芬多精與寧靜芬芳。</p>
+                    </div>
+                </div>
+            </div>
+            <!-- 景點 2 -->
+            <div class="glass-card rounded-2xl border border-thai-green/20 overflow-hidden shadow-xs">
+                <button onclick="toggleAccordion('d1-spot-2')" class="w-full p-4 text-left flex items-center justify-between bg-white/60 hover:bg-white transition-colors">
+                    <div class="font-bold text-thai-green text-sm sm:text-base flex items-center gap-2 flex-wrap">
+                        <i class="fa-solid fa-leaf text-thai-lightgreen"></i>
+                        <span>拉查帕皇家花園 Royal Park Rajapruek (車程 30 分，停留 1.5 小時)</span>
+                        <a href="https://maps.app.goo.gl/Z5GGfxnfkW4z6SpM7" target="_blank" onclick="event.stopPropagation()" class="bg-thai-accent hover:bg-thai-gold text-white text-[11px] px-2.5 py-1 rounded-full font-normal shadow-xs flex items-center gap-1 transition-all"><i class="fa-solid fa-location-dot"></i> 地圖</a>
+                    </div>
+                    <i id="icon-d1-spot-2" class="fa-solid fa-chevron-down text-thai-green transition-transform"></i>
+                </button>
+                <div id="d1-spot-2" class="accordion-content border-t border-thai-green/10 bg-white/90">
+                    <div class="p-4 text-xs sm:text-sm text-thai-text leading-relaxed space-y-2">
+                        <p class="font-bold text-thai-green">【景點深入介紹與歷史背景】</p>
+                        <p>為了慶祝泰王普密蓬（拉瑪九世）登基 60 週年，以及其 80 歲萬壽，泰國政府於 2006 年在此舉辦「世界園藝博覽會」。園區地標「皇家館（Ho Kham Luang）」是一座極具代表性的泰北蘭納式皇宮建築，館內展示泰國皇家農業計畫的成就及全球罕見的熱帶植物與蘭花溫室，展現高雅的皇家園藝氣派。</p>
+                    </div>
+                </div>
+            </div>
+            <!-- 景點 3 -->
+            <div class="glass-card rounded-2xl border border-thai-green/20 overflow-hidden shadow-xs">
+                <button onclick="toggleAccordion('d1-spot-3')" class="w-full p-4 text-left flex items-center justify-between bg-white/60 hover:bg-white transition-colors">
+                    <div class="font-bold text-thai-green text-sm sm:text-base flex items-center gap-2 flex-wrap">
+                        <i class="fa-solid fa-paw text-thai-lightgreen"></i>
+                        <span>清邁夜間動物園 Night Safari (車程 10 分，停留 2.5 小時)</span>
+                        <a href="https://maps.app.goo.gl/xGb9hiLyVn1His1B9" target="_blank" onclick="event.stopPropagation()" class="bg-thai-accent hover:bg-thai-gold text-white text-[11px] px-2.5 py-1 rounded-full font-normal shadow-xs flex items-center gap-1 transition-all"><i class="fa-solid fa-location-dot"></i> 地圖</a>
+                    </div>
+                    <i id="icon-d1-spot-3" class="fa-solid fa-chevron-down text-thai-green transition-transform"></i>
+                </button>
+                <div id="d1-spot-3" class="accordion-content border-t border-thai-green/10 bg-white/90">
+                    <div class="p-4 text-xs sm:text-sm text-thai-text leading-relaxed space-y-2">
+                        <p class="font-bold text-thai-green">【景點深入介紹與歷史背景】</p>
+                        <p>由泰國政府前總理塔信推動規劃，是全球僅有的兩座夜間野生動物園之一。園區利用天然森林地形劃分區域，透過無窗夜間遊園車帶領遊客近距離探索草食區（長頸鹿近身互動）與肉食區（白虎與猛獸探險），並設有美洲豹環湖步道與水舞燈光秀。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== TAB: D2 (11/12) ==================== -->
+        <div id="tab-d2" class="tab-pane hidden space-y-5">
+            <div class="bg-thai-green text-white p-4 rounded-2xl shadow-md">
+                <h2 class="text-xl font-bold font-serif">DAY 2 ‧ 泰國屋脊茵他儂國家公園 & 帕丘峽谷</h2>
+            </div>
+            <div class="glass-card p-4 rounded-2xl border border-thai-green/20 space-y-2 text-xs sm:text-sm">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-thai-green/10 pb-2">
+                    <span class="font-bold text-thai-green"><i class="fa-solid fa-utensils me-1"></i> 每日餐點：</span>
+                    <span class="text-gray-700"><b>早:</b> 飯店內用 | <b>午:</b> 國家公園泰式風味餐 (350B) | <b>晚:</b> (米推)GINGER FARM (650B)</span>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span class="font-bold text-thai-highlight"><i class="fa-solid fa-hotel me-1"></i> 今晚住宿：</span>
+                    <span class="font-bold text-thai-text">清邁諾富特飯店 Novotel Nimman</span>
+                </div>
+            </div>
+            <!-- 景點 1 -->
+            <div class="glass-card rounded-2xl border border-thai-green/20 overflow-hidden shadow-xs">
+                <button onclick="toggleAccordion('d2-spot-1')" class="w-full p-4 text-left flex items-center justify-between bg-white/60 hover:bg-white transition-colors">
+                    <div class="font-bold text-thai-green text-sm sm:text-base flex items-center gap-2 flex-wrap">
+                        <i class="fa-solid fa-mountain text-thai-lightgreen"></i>
+                        <span>茵他儂國家公園 Doi Inthanon (車程 2 小時，停留 5 小時)</span>
+                        <a href="https://maps.app.goo.gl/StaihaJtE9tWs78u5" target="_blank" onclick="event.stopPropagation()" class="bg-thai-accent hover:bg-thai-gold text-white text-[11px] px-2.5 py-1 rounded-full font-normal shadow-xs flex items-center gap-1 transition-all"><i class="fa-solid fa-location-dot"></i> 地圖</a>
+                    </div>
+                    <i id="icon-d2-spot-1" class="fa-solid fa-chevron-down text-thai-green transition-transform"></i>
+                </button>
+                <div id="d2-spot-1" class="accordion-content border-t border-thai-green/10 bg-white/90">
+                    <div class="p-4 text-xs sm:text-sm text-thai-text leading-relaxed space-y-2">
+                        <p class="font-bold text-thai-green">【景點深入介紹與歷史背景】</p>
+                        <p>海拔 2,565 公尺，泰國最高峰。擁有獨特高山苔蘚雲霧林、國王皇后雙塔、安卡高架木棧道與哇奇拉瀧瀑布。</p>
+                    </div>
+                </div>
+            </div>
+            <!-- 景點 2 -->
+            <div class="glass-card rounded-2xl border border-thai-green/20 overflow-hidden shadow-xs">
+                <button onclick="toggleAccordion('d2-spot-2')" class="w-full p-4 text-left flex items-center justify-between bg-white/60 hover:bg-white transition-colors">
+                    <div class="font-bold text-thai-green text-sm sm:text-base flex items-center gap-2 flex-wrap">
+                        <i class="fa-solid fa-volcano text-thai-lightgreen"></i>
+                        <span>帕丘峽谷 Pha Chor (車程 50 分，停留 45 分鐘)</span>
+                        <a href="https://maps.app.goo.gl/Ri3AJUkJunEeSKLdA" target="_blank" onclick="event.stopPropagation()" class="bg-thai-accent hover:bg-thai-gold text-white text-[11px] px-2.5 py-1 rounded-full font-normal shadow-xs flex items-center gap-1 transition-all"><i class="fa-solid fa-location-dot"></i> 地圖</a>
+                    </div>
+                    <i id="icon-d2-spot-2" class="fa-solid fa-chevron-down text-thai-green transition-transform"></i>
+                </button>
+                <div id="d2-spot-2" class="accordion-content border-t border-thai-green/10 bg-white/90">
+                    <div class="p-4 text-xs sm:text-sm text-thai-text leading-relaxed space-y-2">
+                        <p class="font-bold text-thai-green">【景點深入介紹與歷史背景】</p>
+                        <p>數千年前為濱河河床，經地殼隆起與長期雨水風化，形成高達 30 公尺的壯觀土柱與陡峭懸崖。</p>
+                    </div>
+                </div>
+            </div>
+            <!-- 景點 3 -->
+            <div class="glass-card rounded-2xl border border-thai-green/20 overflow-hidden shadow-xs">
+                <button onclick="toggleAccordion('d2-spot-3')" class="w-full p-4 text-left flex items-center justify-between bg-white/60 hover:bg-white transition-colors">
+                    <div class="font-bold text-thai-green text-sm sm:text-base flex items-center gap-2 flex-wrap">
+                        <i class="fa-solid fa-bag-shopping text-thai-lightgreen"></i>
+                        <span>尼曼路 ONE NIMMAN 及 MAYA 百貨 (車程 90 分，停留 2 小時)</span>
+                        <a href="https://maps.app.goo.gl/yukz2hEt6c5iYwd16" target="_blank" onclick="event.stopPropagation()" class="bg-thai-accent hover:bg-thai-gold text-white text-[11px] px-2.5 py-1 rounded-full font-normal shadow-xs flex items-center gap-1 transition-all"><i class="fa-solid fa-location-dot"></i> 尼曼</a>
+                        <a href="https://maps.app.goo.gl/nxAbrn6jCKuNvRYv8" target="_blank" onclick="event.stopPropagation()" class="bg-thai-accent hover:bg-thai-gold text-white text-[11px] px-2.5 py-1 rounded-full font-normal shadow-xs flex items-center gap-1 transition-all"><i class="fa-solid fa-location-dot"></i> MAYA</a>
+                    </div>
+                    <i id="icon-d2-spot-3" class="fa-solid fa-chevron-down text-thai-green transition-transform"></i>
+                </button>
+                <div id="d2-spot-3" class="accordion-content border-t border-thai-green/10 bg-white/90">
+                    <div class="p-4 text-xs sm:text-sm text-thai-text leading-relaxed space-y-3">
+                        <p class="font-bold text-thai-green">【景點介紹與推薦店家】</p>
+                        <div>
+                            <p class="font-bold text-thai-green">📍 ONE NIMMAN</p>
+                            <p><b>• 推薦店家：</b>White Market（週末文創市集）、Herb Basics（草本香氛）、Panpuri、Mango Tango。</p>
+                            <p><b>• 推薦美食：</b>The Volcano（起司吐司）、Khao Soi Nimman（金麵）、Ristr8to Lab。</p>
+                        </div>
+                        <div class="border-t border-thai-green/10 pt-2">
+                            <p class="font-bold text-thai-green">📍 MAYA 百貨</p>
+                            <p><b>• 推薦店家與熱點：</b>6樓 Nimman Hill 頂樓觀景台（遠眺素帖山日落與夜景酒吧）、B1 Rimping Supermarket（高級超市）、ChaTraMue 手標泰奶、BOOTS/Watsons、5樓 CAMP 書店。</p>
+                            <p><b>• 推薦美食：</b>4樓 Maya Kitchen 美食街（豬腳飯、金邊粉）。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== TAB: D3 (11/13) ==================== -->
+        <div id="tab-d3" class="tab-pane hidden space-y-5">
+            <div class="bg-thai-green text-white p-4 rounded-2xl shadow-md">
+                <h2 class="text-xl font-bold font-serif">DAY 3 ‧ 南奔火車之旅 & 古城馬車巡禮</h2>
+            </div>
+            <div class="glass-card p-4 rounded-2xl border border-thai-green/20 space-y-2 text-xs sm:text-sm">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-thai-green/10 pb-2">
+                    <span class="font-bold text-thai-green"><i class="fa-solid fa-utensils me-1"></i> 每日餐點：</span>
+                    <span class="text-gray-700"><b>早:</b> 飯店內用 | <b>午:</b> 南奔龍眼豬肉米粉湯+甜點 (250B) | <b>晚:</b> (米推)CHOM CAFE (500B)</span>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span class="font-bold text-thai-highlight"><i class="fa-solid fa-hotel me-1"></i> 今晚住宿：</span>
+                    <span class="font-bold text-thai-text">清邁萬豪飯店 Chiang Mai Marriott Hotel</span>
+                </div>
+            </div>
+            <!-- 景點 1 -->
+            <div class="glass-card rounded-2xl border border-thai-green/20 overflow-hidden shadow-xs">
+                <button onclick="toggleAccordion('d3-spot-1')" class="w-full p-4 text-left flex items-center justify-between bg-white/60 hover:bg-white transition-colors">
+                    <div class="font-bold text-thai-green text-sm sm:text-base flex items-center gap-2">
+                        <i class="fa-solid fa-train text-thai-lightgreen"></i>
+                        <span>乘坐泰國特色火車前往南奔府 (車程 40 分，停留約 5 小時)</span>
+                    </div>
+                    <i id="icon-d3-spot-1" class="fa-solid fa-chevron-down text-thai-green transition-transform"></i>
+                </button>
+                <div id="d3-spot-1" class="accordion-content border-t border-thai-green/10 bg-white/90">
+                    <div class="p-4 text-xs sm:text-sm text-thai-text leading-relaxed space-y-2">
+                        <p class="font-bold text-thai-green">【景點深入介紹與歷史背景】</p>
+                        <p>南奔府曾是古代孟族哈利奔猜王國首都。搭乘復古火車體驗鐵道風情，探訪古寺建築。</p>
+                    </div>
+                </div>
+            </div>
+            <!-- 景點 2 -->
+            <div class="glass-card rounded-2xl border border-thai-green/20 overflow-hidden shadow-xs">
+                <button onclick="toggleAccordion('d3-spot-2')" class="w-full p-4 text-left flex items-center justify-between bg-white/60 hover:bg-white transition-colors">
+                    <div class="font-bold text-thai-green text-sm sm:text-base flex items-center gap-2">
+                        <i class="fa-solid fa-palette text-thai-lightgreen"></i>
+                        <span>DIY 陶瓷彩繪工藝體驗</span>
+                    </div>
+                    <i id="icon-d3-spot-2" class="fa-solid fa-chevron-down text-thai-green transition-transform"></i>
+                </button>
+                <div id="d3-spot-2" class="accordion-content border-t border-thai-green/10 bg-white/90">
+                    <div class="p-4 text-xs sm:text-sm text-thai-text leading-relaxed space-y-2">
+                        <p class="font-bold text-thai-green">【景點深入介紹與歷史背景】</p>
+                        <p>泰北陶瓷重鎮，於素坯陶瓷上親手繪製圖騰，體驗傳統工藝文化。</p>
+                    </div>
+                </div>
+            </div>
+            <!-- 景點 3 -->
+            <div class="glass-card rounded-2xl border border-thai-green/20 overflow-hidden shadow-xs">
+                <button onclick="toggleAccordion('d3-spot-3')" class="w-full p-4 text-left flex items-center justify-between bg-white/60 hover:bg-white transition-colors">
+                    <div class="font-bold text-thai-green text-sm sm:text-base flex items-center gap-2">
+                        <i class="fa-solid fa-horse text-thai-lightgreen"></i>
+                        <span>乘坐馬車遊覽南邦古城風貌</span>
+                    </div>
+                    <i id="icon-d3-spot-3" class="fa-solid fa-chevron-down text-thai-green transition-transform"></i>
+                </button>
+                <div id="d3-spot-3" class="accordion-content border-t border-thai-green/10 bg-white/90">
+                    <div class="p-4 text-xs sm:text-sm text-thai-text leading-relaxed space-y-2">
+                        <p class="font-bold text-thai-green">【景點深入介紹與歷史背景】</p>
+                        <p>南邦府是泰國唯一保留馬車傳統的城市，乘馬車穿梭百年老宅感受懷舊風情。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== TAB: D4 (11/14) ==================== -->
+        <div id="tab-d4" class="tab-pane hidden space-y-5">
+            <div class="bg-thai-green text-white p-4 rounded-2xl shadow-md">
+                <h2 class="text-xl font-bold font-serif">DAY 4 ‧ 真心市集、紙傘村與百年幸福村</h2>
+            </div>
+            <div class="glass-card p-4 rounded-2xl border border-thai-green/20 space-y-2 text-xs sm:text-sm">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-thai-green/10 pb-2">
+                    <span class="font-bold text-thai-green"><i class="fa-solid fa-utensils me-1"></i> 每日餐點：</span>
+                    <span class="text-gray-700"><b>早:</b> 飯店內用 | <b>午:</b> (米推)紅橋餐廳 (350B) | <b>晚:</b> (米推)OHKAJU三兄弟 (650B)</span>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span class="font-bold text-thai-highlight"><i class="fa-solid fa-hotel me-1"></i> 今晚住宿：</span>
+                    <span class="font-bold text-thai-text">清邁萬豪飯店 Chiang Mai Marriott Hotel</span>
+                </div>
+            </div>
+            <!-- 景點 1 -->
+            <div class="glass-card rounded-2xl border border-thai-green/20 overflow-hidden shadow-xs">
+                <button onclick="toggleAccordion('d4-spot-1')" class="w-full p-4 text-left flex items-center justify-between bg-white/60 hover:bg-white transition-colors">
+                    <div class="font-bold text-thai-green text-sm sm:text-base flex items-center gap-2 flex-wrap">
+                        <i class="fa-solid fa-store text-thai-lightgreen"></i>
+                        <span>真心市集 JING JAI MARKET (限定週六、日，停留 1.5 小時)</span>
+                        <a href="https://maps.app.goo.gl/GpbHFwBzHsVbHYL49" target="_blank" onclick="event.stopPropagation()" class="bg-thai-accent hover:bg-thai-gold text-white text-[11px] px-2.5 py-1 rounded-full font-normal shadow-xs flex items-center gap-1 transition-all"><i class="fa-solid fa-location-dot"></i> 地圖</a>
+                    </div>
+                    <i id="icon-d4-spot-1" class="fa-solid fa-chevron-down text-thai-green transition-transform"></i>
+                </button>
+                <div id="d4-spot-1" class="accordion-content border-t border-thai-green/10 bg-white/90">
+                    <div class="p-4 text-xs sm:text-sm text-thai-text leading-relaxed space-y-2">
+                        <p class="font-bold text-thai-green">【景點介紹與推薦店家】</p>
+                        <p>主打有機小農與環保無塑風格的週末文創市集。</p>
+                        <p><b>• 推薦店家：</b>Goodholds（棉麻衣物與陶藝）、Tops Green 環保超市、Goodship 獨立手作攤位。</p>
+                        <p><b>• 推薦美食：</b>Roast8-to 手沖咖啡、Kang Jingjai 泰北菜、Bud 有機果汁。</p>
+                    </div>
+                </div>
+            </div>
+            <!-- 景點 2 -->
+            <div class="glass-card rounded-2xl border border-thai-green/20 overflow-hidden shadow-xs">
+                <button onclick="toggleAccordion('d4-spot-2')" class="w-full p-4 text-left flex items-center justify-between bg-white/60 hover:bg-white transition-colors">
+                    <div class="font-bold text-thai-green text-sm sm:text-base flex items-center gap-2">
+                        <i class="fa-solid fa-umbrella text-thai-lightgreen"></i>
+                        <span>泊桑紙傘村 Bo Sang Umbrella Village (停留 45 分鐘)</span>
+                    </div>
+                    <i id="icon-d4-spot-2" class="fa-solid fa-chevron-down text-thai-green transition-transform"></i>
+                </button>
+                <div id="d4-spot-2" class="accordion-content border-t border-thai-green/10 bg-white/90">
+                    <div class="p-4 text-xs sm:text-sm text-thai-text leading-relaxed space-y-2">
+                        <p class="font-bold text-thai-green">【景點深入介紹與歷史背景】</p>
+                        <p>傳承兩百年歷史的手工油紙傘聚落，由村民以天然桑皮紙與竹骨架製作並手繪精美圖騰。</p>
+                    </div>
+                </div>
+            </div>
+            <!-- 景點 3 -->
+            <div class="glass-card rounded-2xl border border-thai-green/20 overflow-hidden shadow-xs">
+                <button onclick="toggleAccordion('d4-spot-3')" class="w-full p-4 text-left flex items-center justify-between bg-white/60 hover:bg-white transition-colors">
+                    <div class="font-bold text-thai-green text-sm sm:text-base flex items-center gap-2 flex-wrap">
+                        <i class="fa-solid fa-map-location-dot text-thai-lightgreen"></i>
+                        <span>百年幸福村景觀咖啡店 & 清邁夜市 (坐麵包車)</span>
+                        <a href="https://maps.app.goo.gl/Shx6cw5L8T8oP9jg7" target="_blank" onclick="event.stopPropagation()" class="bg-thai-accent hover:bg-thai-gold text-white text-[11px] px-2.5 py-1 rounded-full font-normal shadow-xs flex items-center gap-1 transition-all"><i class="fa-solid fa-location-dot"></i> 夜市地圖</a>
+                    </div>
+                    <i id="icon-d4-spot-3" class="fa-solid fa-chevron-down text-thai-green transition-transform"></i>
+                </button>
+                <div id="d4-spot-3" class="accordion-content border-t border-thai-green/10 bg-white/90">
+                    <div class="p-4 text-xs sm:text-sm text-thai-text leading-relaxed space-y-2">
+                        <p class="font-bold text-thai-green">【景點介紹與推薦】</p>
+                        <p><b>📍 百年幸福村：</b>品嚐手工椰子冰淇淋或熱椰漿湯圓。</p>
+                        <p><b>📍 清邁觀光夜市 (Night Bazaar)：</b>推薦 Anusarn Market（木雕與泰絲藝品）、Ploen Ruedee Night Market（露天美式餐車音樂夜市）。</p>
+                        <p><b>• 推薦美食：</b>泰式香蕉煎餅（Roti）、芒果糯米飯、海鮮燒烤與沙嗲串燒。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== TAB: D5 (11/15) ==================== -->
+        <div id="tab-d5" class="tab-pane hidden space-y-5">
+            <div class="bg-thai-green text-white p-4 rounded-2xl shadow-md">
+                <h2 class="text-xl font-bold font-serif">DAY 5 ‧ 享用飯店早餐後前往清邁機場 / 台北</h2>
+            </div>
+            <div class="glass-card p-4 rounded-2xl border border-thai-green/20 space-y-2 text-xs sm:text-sm">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-thai-green/10 pb-2">
+                    <span class="font-bold text-thai-green"><i class="fa-solid fa-utensils me-1"></i> 每日餐點：</span>
+                    <span class="text-gray-700"><b>早:</b> 飯店內用自助餐 | <b>午:</b> 機上精緻套餐 | <b>晚:</b> X</span>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span class="font-bold text-thai-highlight"><i class="fa-solid fa-house me-1"></i> 今晚住宿：</span>
+                    <span class="font-bold text-thai-text">溫暖的家</span>
+                </div>
+            </div>
+            <!-- 景點 1 -->
+            <div class="glass-card rounded-2xl border border-thai-green/20 overflow-hidden shadow-xs">
+                <button onclick="toggleAccordion('d5-spot-1')" class="w-full p-4 text-left flex items-center justify-between bg-white/60 hover:bg-white transition-colors">
+                    <div class="font-bold text-thai-green text-sm sm:text-base flex items-center gap-2">
+                        <i class="fa-solid fa-plane-departure text-thai-lightgreen"></i>
+                        <span>清邁國際機場 (CNX) ➔ 台北桃園機場第一航廈 (TPE)</span>
+                    </div>
+                    <i id="icon-d5-spot-1" class="fa-solid fa-chevron-down text-thai-green transition-transform"></i>
+                </button>
+                <div id="d5-spot-1" class="accordion-content border-t border-thai-green/10 bg-white/90">
+                    <div class="p-4 text-xs sm:text-sm text-thai-text leading-relaxed space-y-2">
+                        <p class="font-bold text-thai-green">【旅程總結與返程叮嚀】</p>
+                        <p>享用完豐盛早餐後前往清邁機場，搭乘中華航空 CI852 班機（11:25 起飛，15:50 抵達台北桃園機場第一航廈），為清邁之旅劃下完美句點！</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== TAB: 航班住宿 ==================== -->
+        <div id="tab-info" class="tab-pane hidden space-y-6">
+            <!-- 航班資訊 -->
+            <div class="glass-card rounded-2xl p-5 shadow-md border-l-4 border-thai-green">
+                <h3 class="font-bold text-thai-green text-base sm:text-lg mb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-plane text-thai-lightgreen"></i> 中華航空 往返航班資訊
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
+                    <div class="bg-white/80 p-3.5 rounded-xl border border-thai-green/10">
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="font-bold text-white bg-thai-green px-2 py-0.5 rounded text-[11px]">去程 ‧ CI851</span>
+                            <span class="text-gray-500 font-medium">04小時10分</span>
+                        </div>
+                        <div class="flex justify-between items-center mt-2 font-semibold">
+                            <div>台北 (TPE) 07:20<br><span class="text-[10px] text-thai-highlight">第一航廈</span></div>
+                            <i class="fa-solid fa-arrow-right text-thai-accent"></i>
+                            <div>清邁 (CNX) 10:30</div>
+                        </div>
+                    </div>
+                    <div class="bg-white/80 p-3.5 rounded-xl border border-thai-green/10">
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="font-bold text-white bg-thai-accent px-2 py-0.5 rounded text-[11px]">回程 ‧ CI852</span>
+                            <span class="text-gray-500 font-medium">03小時25分</span>
+                        </div>
+                        <div class="flex justify-between items-center mt-2 font-semibold">
+                            <div>清邁 (CNX) 11:25</div>
+                            <i class="fa-solid fa-arrow-right text-thai-accent"></i>
+                            <div>台北 (TPE) 15:50<br><span class="text-[10px] text-thai-highlight">第一航廈</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 飯店住宿 -->
+            <div class="glass-card rounded-2xl p-5 shadow-md border-l-4 border-thai-accent">
+                <h3 class="font-bold text-thai-green text-base sm:text-lg mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-hotel text-thai-accent"></i> 飯店住宿詳細資料
+                </h3>
+                <div class="space-y-4 text-xs sm:text-sm">
+                    <div class="bg-white/80 p-4 rounded-xl border border-thai-green/10 space-y-1">
+                        <div class="flex items-center justify-between">
+                            <h4 class="font-bold text-sm sm:text-base text-thai-green">1. 清邁諾富特飯店 Novotel Chiangmai Nimman Journeyhub</h4>
+                            <span class="text-[11px] font-bold bg-thai-green/10 text-thai-green px-2 py-0.5 rounded">第 1、2 晚</span>
+                        </div>
+                        <p class="text-gray-700"><b>地址：</b>7/77 Huay Kaew Road, Chang Phueak, Mueang Chiang Mai District, Chiang Mai 50300</p>
+                        <p class="text-gray-700"><b>電話：</b>+66 52 012 555</p>
+                    </div>
+                    <div class="bg-white/80 p-4 rounded-xl border border-thai-green/10 space-y-1">
+                        <div class="flex items-center justify-between">
+                            <h4 class="font-bold text-sm sm:text-base text-thai-green">2. 清邁萬豪飯店 Chiang Mai Marriott Hotel</h4>
+                            <span class="text-[11px] font-bold bg-thai-accent/20 text-thai-text px-2 py-0.5 rounded">第 3、4 晚</span>
+                        </div>
+                        <p class="text-gray-700"><b>地址：</b>108 Chang Klan Road, Tambon Chang Khlan, Mueang Chiang Mai District, Chiang Mai 50100</p>
+                        <p class="text-gray-700"><b>電話：</b>+66 53 253 900</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- JS App Logic -->
+    <script>
+        // 1. 動態倒數計時器
+        const targetDate = new Date("2026-11-11T07:20:00+08:00").getTime();
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+            const display = document.getElementById("countdownDisplay");
+            if (distance < 0) {
+                display.innerText = "⏳ 旅程熱烈進行中！Enjoy Chiang Mai!";
+                return;
+            }
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            display.innerText = `⏳ 距離出發還有 ${days} 天 ${hours} 小時 ${minutes} 分 ${seconds} 秒`;
+        }
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // 2. Tab 切換機制
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-pane').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('bg-thai-accent', 'text-thai-text', 'shadow-md');
+                btn.classList.add('text-amber-100', 'hover:bg-white/10');
+            });
+            document.getElementById(tabId).classList.remove('hidden');
+            const activeBtn = document.getElementById(`btn-${tabId}`);
+            if (activeBtn) {
+                activeBtn.classList.remove('text-amber-100', 'hover:bg-white/10');
+                activeBtn.classList.add('bg-thai-accent', 'text-thai-text', 'shadow-md');
+            }
+            window.scrollTo({ top: 120, behavior: 'smooth' });
+        }
+
+        // 3. 手風琴折疊展開
+        function toggleAccordion(elementId) {
+            const content = document.getElementById(elementId);
+            const icon = document.getElementById(`icon-${elementId}`);
+            if (content.classList.contains('expanded')) {
+                content.classList.remove('expanded');
+                if (icon) icon.style.transform = 'rotate(0deg)';
+            } else {
+                content.classList.add('expanded');
+                if (icon) icon.style.transform = 'rotate(180deg)';
+            }
+        }
+    </script>
+</body>
+</html>
