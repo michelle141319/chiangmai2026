@@ -103,7 +103,7 @@
         </div>
     </header>
 
-    <!-- Main Navigation Bar (文字已簡化並強制單行顯示) -->
+    <!-- Main Navigation Bar -->
     <nav class="max-w-4xl mx-auto px-4 w-full sticky top-3 z-50 my-6">
         <div class="flex space-x-1 sm:space-x-2 overflow-x-auto custom-scrollbar p-2 rounded-2xl bg-thai-green/90 backdrop-blur-md shadow-lg border border-thai-accent/30">
             <button onclick="switchTab('tab-all')" id="btn-tab-all" class="nav-btn flex-1 whitespace-nowrap py-2.5 px-2.5 text-[11px] sm:text-sm font-bold rounded-xl text-center transition-all bg-thai-accent text-thai-text shadow-md">
@@ -133,7 +133,7 @@
     <!-- Main Content Container -->
     <main class="max-w-4xl mx-auto px-4 sm:px-6 w-full flex-grow space-y-6">
 
-        <!-- 5天動態天氣預報小工具 (包含可愛天氣圖案按日期變更) -->
+        <!-- 5天動態天氣預報小工具 (已刪除下方多餘提示文字) -->
         <div class="glass-card rounded-2xl p-4 shadow-md border-l-4 border-thai-accent space-y-3">
             <div class="flex items-center justify-between">
                 <div class="flex items-center gap-2.5">
@@ -142,7 +142,6 @@
                     </div>
                     <div>
                         <div class="font-bold text-thai-green text-sm sm:text-base">11/11 - 11/15 清邁即時天氣預報</div>
-                        <div class="text-xs text-thai-muted">點擊下方任一天或右側按鈕查看詳細 AccuWeather 預測</div>
                     </div>
                 </div>
                 <a href="https://www.accuweather.com/zh/th/mueang-chiang-mai/317505/weather-forecast/317505?type=locality&city=%E6%B8%85%E9%82%81" target="_blank" class="bg-thai-accent hover:bg-thai-gold text-white text-xs px-3 py-2 rounded-xl font-bold shadow-xs flex items-center gap-1.5 transition-all shrink-0">
@@ -187,47 +186,37 @@
 
         <!-- ==================== TAB: 總覽 ==================== -->
         <div id="tab-all" class="tab-pane space-y-6">
-            <!-- 航班預計表 (註明桃園機場第一航廈) -->
+            <!-- 航班預計表 (已改為與航班住宿分頁相同的直觀卡片式設計) -->
             <div class="glass-card rounded-2xl p-5 shadow-md border-l-4 border-thai-green">
-                <h3 class="font-bold text-thai-green text-lg mb-3 flex items-center gap-2">
-                    <i class="fa-solid fa-plane"></i> 預計班機資訊
+                <h3 class="font-bold text-thai-green text-base sm:text-lg mb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-plane text-thai-lightgreen"></i> 中華航空 往返航班資訊
                 </h3>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-xs sm:text-sm text-left border-collapse">
-                        <thead>
-                            <tr class="bg-thai-green/10 text-thai-green font-bold border-b border-thai-green/20">
-                                <th class="p-2.5">預計班機</th>
-                                <th class="p-2.5">班號</th>
-                                <th class="p-2.5">出發時間</th>
-                                <th class="p-2.5">出發地</th>
-                                <th class="p-2.5">抵達時間</th>
-                                <th class="p-2.5">目的地</th>
-                                <th class="p-2.5">交通時間</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-thai-green/10 font-medium">
-                            <tr class="hover:bg-white/50">
-                                <td class="p-2.5 font-bold">中華航空</td>
-                                <td class="p-2.5 text-thai-highlight font-bold">CI851</td>
-                                <td class="p-2.5">07:20</td>
-                                <td class="p-2.5">台北 (TPE)<br><span class="text-[10px] text-thai-highlight font-bold">桃園機場第一航廈</span></td>
-                                <td class="p-2.5">10:30</td>
-                                <td class="p-2.5">清邁 (CNX)<br><span class="text-[10px] text-gray-500">清邁國際機場</span></td>
-                                <td class="p-2.5">04:10</td>
-                            </tr>
-                            <tr class="hover:bg-white/50">
-                                <td class="p-2.5 font-bold">中華航空</td>
-                                <td class="p-2.5 text-thai-highlight font-bold">CI852</td>
-                                <td class="p-2.5">11:25</td>
-                                <td class="p-2.5">清邁 (CNX)<br><span class="text-[10px] text-gray-500">清邁國際機場</span></td>
-                                <td class="p-2.5">15:50</td>
-                                <td class="p-2.5">台北 (TPE)<br><span class="text-[10px] text-thai-highlight font-bold">桃園機場第一航廈</span></td>
-                                <td class="p-2.5">03:25</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
+                    <div class="bg-white/80 p-3.5 rounded-xl border border-thai-green/10">
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="font-bold text-white bg-thai-green px-2 py-0.5 rounded text-[11px]">去程 ‧ CI851</span>
+                            <span class="text-gray-500 font-medium">04小時10分</span>
+                        </div>
+                        <div class="flex justify-between items-center mt-2 font-semibold">
+                            <div>台北 (TPE) 07:20<br><span class="text-[10px] text-thai-highlight">第一航廈</span></div>
+                            <i class="fa-solid fa-arrow-right text-thai-accent"></i>
+                            <div>清邁 (CNX) 10:30</div>
+                        </div>
+                    </div>
+                    <div class="bg-white/80 p-3.5 rounded-xl border border-thai-green/10">
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="font-bold text-white bg-thai-accent px-2 py-0.5 rounded text-[11px]">回程 ‧ CI852</span>
+                            <span class="text-gray-500 font-medium">03小時25分</span>
+                        </div>
+                        <div class="flex justify-between items-center mt-2 font-semibold">
+                            <div>清邁 (CNX) 11:25</div>
+                            <i class="fa-solid fa-arrow-right text-thai-accent"></i>
+                            <div>台北 (TPE) 15:50<br><span class="text-[10px] text-thai-highlight">第一航廈</span></div>
+                        </div>
+                    </div>
                 </div>
             </div>
+
             <!-- 第 1 天 (全部行程) -->
             <div class="glass-card rounded-2xl p-5 shadow-md border-t-4 border-thai-green">
                 <div class="font-bold text-base sm:text-lg text-thai-green mb-3 border-b border-thai-green/10 pb-2">
@@ -386,7 +375,7 @@
         <!-- ==================== TAB: D2 (11/12) ==================== -->
         <div id="tab-d2" class="tab-pane hidden space-y-5">
             <div class="bg-thai-green text-white p-4 rounded-2xl shadow-md">
-                <h2 class="text-xl font-bold font-serif">DAY 2 ‧ 泰國屋脊茵他儂國家公園 & 帕丘峽谷</h2>
+                <h2 class="text-xl font-bold font-serif">DAY 2 ‧ 泰國屋脊-茵他儂國家公園 & 帕丘峽谷</h2>
             </div>
             <div class="glass-card p-4 rounded-2xl border border-thai-green/20 space-y-2 text-xs sm:text-sm">
                 <div class="flex flex-wrap items-center justify-between gap-2 border-b border-thai-green/10 pb-2">
