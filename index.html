@@ -133,23 +133,25 @@
     <!-- Main Content Container -->
     <main class="max-w-4xl mx-auto px-4 sm:px-6 w-full flex-grow space-y-6">
 
-        <!-- 5天動態天氣預報小工具 (串接 Open-Meteo 免費氣象 API，每次重新整理皆會自動更新即時氣象與可愛圖案) -->
+        <!-- 5天動態天氣預報小工具 (串接 Open-Meteo 免費氣象 API，連結替換為 Ventusky 清邁氣象網頁) -->
         <div class="glass-card rounded-2xl p-4 shadow-md border-l-4 border-thai-accent space-y-3">
             <div class="flex items-center justify-between">
                 <div class="flex items-center gap-2.5">
                     <div class="text-thai-accent text-xl">
-                        <i class="fa-solid fa-cloud-sun"></i>
+                        <i class="fa-solid fa-wind"></i>
                     </div>
                     <div>
                         <div class="font-bold text-thai-green text-sm sm:text-base">11/11 - 11/15 清邁即時天氣預報</div>
                     </div>
                 </div>
-                <a href="https://www.accuweather.com/zh/th/mueang-chiang-mai/317505/weather-forecast/317505?type=locality&city=%E6%B8%85%E9%82%81" target="_blank" class="bg-thai-accent hover:bg-thai-gold text-white text-xs px-3 py-2 rounded-xl font-bold shadow-xs flex items-center gap-1.5 transition-all shrink-0">
-                    <span>完整氣象</span>
+                <!-- Ventusky 專屬按鈕 -->
+                <a href="https://www.ventusky.com/zh-tw/chiang-mai" target="_blank" class="bg-thai-accent hover:bg-thai-gold text-white text-xs px-3 py-2 rounded-xl font-bold shadow-xs flex items-center gap-1.5 transition-all shrink-0">
+                    <i class="fa-solid fa-globe text-xs"></i>
+                    <span>Ventusky 觀看氣象</span>
                     <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
                 </a>
             </div>
-            <!-- 5天每日天氣小卡列 (內容由 JavaScript 動態寫入/更新) -->
+            <!-- 5天每日天氣小卡列 -->
             <div id="weatherGrid" class="grid grid-cols-5 gap-1.5 sm:gap-2 pt-1">
                 <div class="bg-white/80 rounded-xl p-2 text-center border border-thai-green/10 shadow-2xs">
                     <div class="text-[11px] font-bold text-thai-green">11/11 (二)</div>
@@ -186,7 +188,7 @@
 
         <!-- ==================== TAB: 總覽 ==================== -->
         <div id="tab-all" class="tab-pane space-y-6">
-            <!-- 航班預計表 (與航班住宿分頁相同的直觀卡片式設計，標註第一航廈) -->
+            <!-- 航班預計表 -->
             <div class="glass-card rounded-2xl p-5 shadow-md border-l-4 border-thai-green">
                 <h3 class="font-bold text-thai-green text-base sm:text-lg mb-3 flex items-center gap-2">
                     <i class="fa-solid fa-plane text-thai-lightgreen"></i> 中華航空 往返航班資訊
@@ -375,7 +377,7 @@
         <!-- ==================== TAB: D2 (11/12) ==================== -->
         <div id="tab-d2" class="tab-pane hidden space-y-5">
             <div class="bg-thai-green text-white p-4 rounded-2xl shadow-md">
-                <h2 class="text-xl font-bold font-serif">DAY 2 ‧ 泰國屋脊-茵他儂國家公園 & 帕丘峽谷</h2>
+                <h2 class="text-xl font-bold font-serif">DAY 2 ‧ 泰國屋脊茵他儂國家公園 & 帕丘峽谷</h2>
             </div>
             <div class="glass-card p-4 rounded-2xl border border-thai-green/20 space-y-2 text-xs sm:text-sm">
                 <div class="flex flex-wrap items-center justify-between gap-2 border-b border-thai-green/10 pb-2">
@@ -651,7 +653,7 @@
                     </div>
                 </div>
             </div>
-<!-- 飯店住宿 -->
+            <!-- 飯店住宿 (附帶專屬地圖導航按鈕) -->
             <div class="glass-card rounded-2xl p-5 shadow-md border-l-4 border-thai-accent">
                 <h3 class="font-bold text-thai-green text-base sm:text-lg mb-4 flex items-center gap-2">
                     <i class="fa-solid fa-hotel text-thai-accent"></i> 飯店住宿詳細資料
@@ -683,6 +685,7 @@
                     </div>
                 </div>
             </div>
+        </div>
     </main>
 
     <!-- JS App Logic -->
