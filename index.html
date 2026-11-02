@@ -149,7 +149,7 @@
                     <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
                 </a>
             </div>
-            <!-- 5天每日天氣小卡列 (內容由 JavaScript 動態寫入/更新) -->
+            <!-- 5天每日天氣小卡列 -->
             <div id="weatherGrid" class="grid grid-cols-5 gap-1.5 sm:gap-2 pt-1">
                 <div class="bg-white/80 rounded-xl p-2 text-center border border-thai-green/10 shadow-2xs">
                     <div class="text-[11px] font-bold text-thai-green">11/11 (二)</div>
@@ -198,7 +198,7 @@
                             <span class="text-gray-500 font-medium">04小時10分</span>
                         </div>
                         <div class="flex justify-between items-center mt-2 font-semibold">
-                            <div>桃園國際機場 (TPE) 07:20<br><span class="text-[10px] text-thai-highlight">第一航廈</span></div>
+                            <div>台北 (TPE) 07:20<br><span class="text-[10px] text-thai-highlight">第一航廈</span></div>
                             <i class="fa-solid fa-arrow-right text-thai-accent"></i>
                             <div>清邁 (CNX) 10:30</div>
                         </div>
@@ -211,7 +211,7 @@
                         <div class="flex justify-between items-center mt-2 font-semibold">
                             <div>清邁 (CNX) 11:25</div>
                             <i class="fa-solid fa-arrow-right text-thai-accent"></i>
-                            <div>桃園國際機場 (TPE) 15:50<br><span class="text-[10px] text-thai-highlight">第一航廈</span></div>
+                            <div>台北 (TPE) 15:50<br><span class="text-[10px] text-thai-highlight">第一航廈</span></div>
                         </div>
                     </div>
                 </div>
@@ -375,7 +375,7 @@
         <!-- ==================== TAB: D2 (11/12) ==================== -->
         <div id="tab-d2" class="tab-pane hidden space-y-5">
             <div class="bg-thai-green text-white p-4 rounded-2xl shadow-md">
-                <h2 class="text-xl font-bold font-serif">DAY 2 ‧ 泰國屋脊茵他儂國家公園 & 帕丘峽谷</h2>
+                <h2 class="text-xl font-bold font-serif">DAY 2 ‧ 泰國屋脊-茵他儂國家公園 & 帕丘峽谷</h2>
             </div>
             <div class="glass-card p-4 rounded-2xl border border-thai-green/20 space-y-2 text-xs sm:text-sm">
                 <div class="flex flex-wrap items-center justify-between gap-2 border-b border-thai-green/10 pb-2">
@@ -387,7 +387,7 @@
                     <span class="font-bold text-thai-text">清邁諾富特飯店 Novotel Nimman</span>
                 </div>
             </div>
-            <!-- 景點 1 -->
+            <!-- 景點 1 (新增詳細資料) -->
             <div class="glass-card rounded-2xl border border-thai-green/20 overflow-hidden shadow-xs">
                 <button onclick="toggleAccordion('d2-spot-1')" class="w-full p-4 text-left flex items-center justify-between bg-white/60 hover:bg-white transition-colors">
                     <div class="font-bold text-thai-green text-sm sm:text-base flex items-center gap-2 flex-wrap">
@@ -398,9 +398,26 @@
                     <i id="icon-d2-spot-1" class="fa-solid fa-chevron-down text-thai-green transition-transform"></i>
                 </button>
                 <div id="d2-spot-1" class="accordion-content border-t border-thai-green/10 bg-white/90">
-                    <div class="p-4 text-xs sm:text-sm text-thai-text leading-relaxed space-y-2">
+                    <div class="p-4 text-xs sm:text-sm text-thai-text leading-relaxed space-y-3">
                         <p class="font-bold text-thai-green">【景點深入介紹與歷史背景】</p>
-                        <p>海拔 2,565 公尺，泰國最高峰。擁有獨特高山苔蘚雲霧林、國王皇后雙塔、安卡高架木棧道與哇奇拉瀧瀑布。</p>
+                        <div>
+                            <p class="font-bold text-thai-green">📍 國王皇后雙塔（Naphamethanidon & Napaphonphoonpisiri）</p>
+                            <p><b>- 背景：</b> 兩座宏偉的佛塔分別是為了紀念泰國國王拉瑪九世 60 歲大壽（1987年）以及皇后 60 歲大壽（1992年）而興建。</p>
+                            <p><b>- 特色：</b> 塔身周圍環繞著精心維護的四季繁花庭園和高山水池，天氣晴朗時視野極佳，可以俯瞰整片壯麗的山谷雲海。</p>
+                        </div>
+                        <div class="border-t border-thai-green/10 pt-2">
+                            <p class="font-bold text-thai-green">📍 山頂安卡步道（Ang Ka Nature Trail）</p>
+                            <p><b>- 背景：</b> 位於海拔 2,565 公尺的泰國最高點，是一條維護完善的高架木棧道。</p>
+                            <p><b>- 特色：</b> 這裡保留了極為罕見的高山苔蘚雲霧林（Cloud Forest）。因為氣溫終年涼爽濕潤，樹幹上掛滿了綠色的苔蘚與蕨類，漫步其中就像走入侏儸紀或魔戒的魔幻森林。</p>
+                        </div>
+                        <div class="border-t border-thai-green/10 pt-2">
+                            <p class="font-bold text-thai-green">📍 哇奇拉瀧瀑布（Wachirathan Waterfall）</p>
+                            <p><b>- 特色：</b> 國家公園內規模最大、氣勢最磅礡的瀑布之一。高達 80 公尺的水流從峭壁傾瀉而下，水花激起大片水霧，在陽光折射下經常能看到美麗的彩虹。</p>
+                        </div>
+                        <div class="border-t border-thai-green/10 pt-2">
+                            <p class="font-bold text-thai-green">📍 高山少數民族市集（Hmong Market）</p>
+                            <p><b>- 特色：</b> 當地的苗族（Hmong）原住民擺設的高山農夫市集。這裡能買到當季新鮮的高山草莓、特產咖啡豆、手工編織品以及各式山產水果，充滿濃厚的人文風情。</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -458,7 +475,7 @@
             <div class="glass-card p-4 rounded-2xl border border-thai-green/20 space-y-2 text-xs sm:text-sm">
                 <div class="flex flex-wrap items-center justify-between gap-2 border-b border-thai-green/10 pb-2">
                     <span class="font-bold text-thai-green"><i class="fa-solid fa-utensils me-1"></i> 每日餐點：</span>
-                    <span class="text-gray-700"><b>早:</b> 飯店內用 | <b>午:</b> 南奔龍眼豬肉米粉湯+甜點 (250B) | <b>晚:</b> (米推)CHOM CAFE (500B)</span>
+                    <span class="text-gray-700"><b>早:</b> 飯店內用 | <b>午:</b> 南奔特產 龍眼豬肉米粉湯＋飲料＋椰奶甜點 250B | <b>晚:</b> (米推) CHOM CAFE 泰式料理 500B</span>
                 </div>
                 <div class="flex items-center justify-between">
                     <span class="font-bold text-thai-highlight"><i class="fa-solid fa-hotel me-1"></i> 今晚住宿：</span>
@@ -523,7 +540,7 @@
             <div class="glass-card p-4 rounded-2xl border border-thai-green/20 space-y-2 text-xs sm:text-sm">
                 <div class="flex flex-wrap items-center justify-between gap-2 border-b border-thai-green/10 pb-2">
                     <span class="font-bold text-thai-green"><i class="fa-solid fa-utensils me-1"></i> 每日餐點：</span>
-                    <span class="text-gray-700"><b>早:</b> 飯店內用 | <b>午:</b> (米推)紅橋餐廳LumDee Te Khuadang (350B) | <b>晚:</b> (米推)OHKAJHU三兄弟 (650B)</span>
+                    <span class="text-gray-700"><b>早:</b> 飯店內用 | <b>午:</b> (米推)紅橋餐廳 LumDee Te Khuadang 泰式餐 350B | <b>晚:</b> (米推) OHKAJHU 三兄弟有機餐廳 650B</span>
                 </div>
                 <div class="flex items-center justify-between">
                     <span class="font-bold text-thai-highlight"><i class="fa-solid fa-hotel me-1"></i> 今晚住宿：</span>
@@ -633,7 +650,7 @@
                             <span class="text-gray-500 font-medium">04小時10分</span>
                         </div>
                         <div class="flex justify-between items-center mt-2 font-semibold">
-                            <div>桃園國際機場  (TPE) 07:20<br><span class="text-[10px] text-thai-highlight">第一航廈</span></div>
+                            <div>台北 (TPE) 07:20<br><span class="text-[10px] text-thai-highlight">第一航廈</span></div>
                             <i class="fa-solid fa-arrow-right text-thai-accent"></i>
                             <div>清邁 (CNX) 10:30</div>
                         </div>
@@ -646,7 +663,7 @@
                         <div class="flex justify-between items-center mt-2 font-semibold">
                             <div>清邁 (CNX) 11:25</div>
                             <i class="fa-solid fa-arrow-right text-thai-accent"></i>
-                            <div>桃園國際機場  (TPE) 15:50<br><span class="text-[10px] text-thai-highlight">第一航廈</span></div>
+                            <div>台北 (TPE) 15:50<br><span class="text-[10px] text-thai-highlight">第一航廈</span></div>
                         </div>
                     </div>
                 </div>
@@ -756,7 +773,7 @@
             }
         }
 
-        // 4. 動態即時天氣 API 串接與圖案自動更新
+        // 4. 動態即時天氣 API 串接
         const tripDays = [
             { date: '11/11 (二)', defaultIcon: '⛅', defaultDesc: '晴時多雲', tempMax: 29, tempMin: 21 },
             { date: '11/12 (三)', defaultIcon: '☀️', defaultDesc: '晴朗舒適', tempMax: 30, tempMin: 20 },
@@ -785,14 +802,12 @@
                     const codes = data.daily.weathercode;
                     const maxTemps = data.daily.temperature_2m_max;
                     const minTemps = data.daily.temperature_2m_min;
-
                     let htmlContent = '';
                     tripDays.forEach((day, index) => {
                         const code = codes[index] !== undefined ? codes[index] : 1;
                         const weatherInfo = getWeatherIconAndDesc(code);
                         const maxT = maxTemps[index] !== undefined ? Math.round(maxTemps[index]) : day.tempMax;
                         const minT = minTemps[index] !== undefined ? Math.round(minTemps[index]) : day.tempMin;
-
                         htmlContent += `
                             <div class="bg-white/80 rounded-xl p-2 text-center border border-thai-green/10 shadow-2xs">
                                 <div class="text-[11px] font-bold text-thai-green">${day.date}</div>
@@ -819,7 +834,6 @@
                 gridContainer.innerHTML = fallbackContent;
             }
         }
-
         fetchChiangMaiLiveWeather();
     </script>
 </body>
