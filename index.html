@@ -155,31 +155,31 @@
             <!-- 5天每日天氣小卡列 -->
             <div id="weatherGrid" class="grid grid-cols-5 gap-1.5 sm:gap-2 pt-1">
                 <div class="bg-white/80 rounded-xl p-2 text-center border border-thai-green/10 shadow-2xs">
-                    <div class="text-[11px] font-bold text-thai-green">11/11 (二)</div>
+                    <div class="text-[11px] font-bold text-thai-green">11/11 (三)</div>
                     <div class="text-xl my-1 animate-pulse">⛅</div>
                     <div class="text-xs font-bold text-thai-text">29° / 21°</div>
                     <div class="text-[10px] text-thai-muted">讀取中...</div>
                 </div>
                 <div class="bg-white/80 rounded-xl p-2 text-center border border-thai-green/10 shadow-2xs">
-                    <div class="text-[11px] font-bold text-thai-green">11/12 (三)</div>
+                    <div class="text-[11px] font-bold text-thai-green">11/12 (四)</div>
                     <div class="text-xl my-1 animate-pulse">☀️</div>
                     <div class="text-xs font-bold text-thai-text">30° / 20°</div>
                     <div class="text-[10px] text-thai-muted">讀取中...</div>
                 </div>
                 <div class="bg-white/80 rounded-xl p-2 text-center border border-thai-green/10 shadow-2xs">
-                    <div class="text-[11px] font-bold text-thai-green">11/13 (四)</div>
+                    <div class="text-[11px] font-bold text-thai-green">11/13 (五)</div>
                     <div class="text-xl my-1 animate-pulse">🌤️</div>
                     <div class="text-xs font-bold text-thai-text">29° / 20°</div>
                     <div class="text-[10px] text-thai-muted">讀取中...</div>
                 </div>
                 <div class="bg-white/80 rounded-xl p-2 text-center border border-thai-green/10 shadow-2xs">
-                    <div class="text-[11px] font-bold text-thai-green">11/14 (五)</div>
+                    <div class="text-[11px] font-bold text-thai-green">11/14 (六)</div>
                     <div class="text-xl my-1 animate-pulse">⛅</div>
                     <div class="text-xs font-bold text-thai-text">28° / 19°</div>
                     <div class="text-[10px] text-thai-muted">讀取中...</div>
                 </div>
                 <div class="bg-white/80 rounded-xl p-2 text-center border border-thai-green/10 shadow-2xs">
-                    <div class="text-[11px] font-bold text-thai-green">11/15 (六)</div>
+                    <div class="text-[11px] font-bold text-thai-green">11/15 (日)</div>
                     <div class="text-xl my-1 animate-pulse">☀️</div>
                     <div class="text-xs font-bold text-thai-text">29° / 20°</div>
                     <div class="text-[10px] text-thai-muted">讀取中...</div>
@@ -835,11 +835,11 @@
 
         // 4. 動態即時天氣 API 串接
         const tripDays = [
-            { date: '11/11 (二)', defaultIcon: '⛅', defaultDesc: '晴時多雲', tempMax: 29, tempMin: 21 },
-            { date: '11/12 (三)', defaultIcon: '☀️', defaultDesc: '晴朗舒適', tempMax: 30, tempMin: 20 },
-            { date: '11/13 (四)', defaultIcon: '🌤️', defaultDesc: '多雲時晴', tempMax: 29, tempMin: 20 },
-            { date: '11/14 (五)', defaultIcon: '⛅', defaultDesc: '微涼多雲', tempMax: 28, tempMin: 19 },
-            { date: '11/15 (六)', defaultIcon: '☀️', defaultDesc: '晴空萬里', tempMax: 29, tempMin: 20 }
+            { date: '11/11 (三)', defaultIcon: '⛅', defaultDesc: '晴時多雲', tempMax: 29, tempMin: 21 },
+            { date: '11/12 (四)', defaultIcon: '☀️', defaultDesc: '晴朗舒適', tempMax: 30, tempMin: 20 },
+            { date: '11/13 (五)', defaultIcon: '🌤️', defaultDesc: '多雲時晴', tempMax: 29, tempMin: 20 },
+            { date: '11/14 (六)', defaultIcon: '⛅', defaultDesc: '微涼多雲', tempMax: 28, tempMin: 19 },
+            { date: '11/15 (日)', defaultIcon: '☀️', defaultDesc: '晴空萬里', tempMax: 29, tempMin: 20 }
         ];
 
         function getWeatherIconAndDesc(code) {
